@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+  Our own turtlebot configuration:
+    - Base      : kobuki
+    - Stacks    : hexagons
+    - 3d Sensor : rplidar s1 + realsense D435i
+-->    
+<robot name="turtlebot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find turtlebot_description)/urdf/turtlebot_common_library.urdf.xacro" />
+  <xacro:include filename="$(find kobuki_description)/urdf/kobuki.urdf.xacro" />
+  <xacro:include filename="$(find turtlebot_description)/urdf/stacks/hexagons.urdf.xacro"/>
+  <xacro:include filename="$(find turtlebot_description)/urdf/sensors/realsense.urdf.xacro"/>
+  <xacro:include filename="$(find turtlebot_description)/urdf/sensors/rplidar.urdf.xacro"/> 
+  
+  <xacro:kobuki/>
+  <xacro:stack_hexagons parent="base_link"/>
+  <xacro:sensor_d435    parent="base_link" 
+      parent_offset_x="0.044" parent_offset_y="0" parent_offset_z="0.318"
+      parent_offset_r="0"     parent_offset_p="0" parent_offset_yaw="0" />
+  <xacro:sensor_rplidar parent="base_link"
+      parent_offset_x="0.10" parent_offset_y="0" parent_offset_z="0.435"
+      parent_offset_r="0"    parent_offset_p="0" parent_offset_yaw="0" />
+
+</robot>

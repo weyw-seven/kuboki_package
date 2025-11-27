@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot name="sensor_rplidar" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- RPLidar 2D LIDAR -->
+  <xacro:macro name="sensor_rplidar" params="parent parent_offset_x parent_offset_y parent_offset_z
+                                                    parent_offset_r parent_offset_p parent_offset_yaw">
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+
+    <joint name="laser_link_joint" type="fixed">
+      <origin xyz="${parent_offset_x} ${parent_offset_y} ${parent_offset_z}" 
+              rpy="${parent_offset_r} ${parent_offset_p} ${parent_offset_yaw}"/>
+      <parent link="${parent}"/>
+      <child link="laser_link" />
+    </joint>
+    <link name="laser_link"/>   
+
+    <!-- rplidar has bug, its frame should rotate 180 degree -->
+    <joint name="laser" type="fixed"> 
+      <origin xyz="0 0 0" rpy="0 0 ${M_PI}" />
+      <parent link="laser_link" />
+      <child link="laser" />
+    </joint>
+    
+    <link name="laser">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/> 
+        <geometry>
+          <box size="0.1 0.1 0.1"/>
+        </geometry>
+      </collision>
+      
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://turtlebot_description/meshes/sensors/hokuyo.dae"/>
+        </geometry>
+      </visual>
+      
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+  </xacro:macro>
+</robot>
+

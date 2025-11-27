@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robot_tools</name>
+  <version>1.0.0</version>
+  <description>The robot_tools package contains tools that are convenient for robot development</description>
+
+  <maintainer email="lhw19@mails.tsinghua.edu.cn">Haowen Lai</maintainer>
+  <author     email="lhw19@mails.tsinghua.edu.cn">Haowen Lai</author>
+  <license>BSD</license>
+  <url type="repository">https://github.com/HaowenLai</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>rospy</depend>
+  <depend>geometry_msg</depend>
+  <depend>std_srvs</depend>
+  <depend>kobuki_msgs</depend>
+
+  <exec_depend>tf</exec_depend>
+  <exec_depend>rviz</exec_depend>
+
+</package>

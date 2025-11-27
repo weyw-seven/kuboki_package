@@ -1,0 +1,6 @@
+.vscode/
+*.db
+build/
+devel/
+*.o
+*.log

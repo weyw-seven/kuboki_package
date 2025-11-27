@@ -1,0 +1,18 @@
+<launch>
+  <!-- This file is used to:
+      1. visualize the robot model in rviz;
+      2. publish the relation of each links in /tf
+    you can use `rqt` to see the tf tree.
+  -->
+  <arg name="model_file" default="$(find turtlebot_description)/robots/kobuki_hexagons_rplidar_realsense.urdf.xacro" />
+  
+  <!-- load robot urdf description file -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model_file)" /> 
+  
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />    
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> 
+  <node name="$(anon rviz)" pkg="rviz" type="rviz" 
+        args="-d $(find robot_tools)/rviz/robot_model_visualizer.rviz" required="true" />
+
+</launch>
+

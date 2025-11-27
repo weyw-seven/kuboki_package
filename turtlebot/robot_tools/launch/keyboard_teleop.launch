@@ -1,0 +1,12 @@
+<launch>
+  <arg name="robot_ns"      default="/" />  <!-- robot namespace, e.g. robot1 -->
+
+  <group ns="$(arg robot_ns)">
+    <!-- turtlebot_teleop_key already has its own built in velocity smoother -->
+    <node pkg="robot_tools" type="turtlebot_teleop_key.py" name="turtlebot_teleop_keyboard"  output="screen">
+      <param name="init_linear"    value="0.13"   type="double" />
+      <param name="init_angular"   value="0.43"   type="double" />
+      <remap from="turtlebot_teleop_keyboard/cmd_vel" to="cmd_vel_mux/input/teleop"/>
+    </node>
+  </group>
+</launch>

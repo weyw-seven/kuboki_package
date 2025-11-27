@@ -1,0 +1,28 @@
+<launch>
+  <!-- 
+       This file remap the frame 'odom' in tf to something else, so the author's original 
+    dataset which contains 'odom' in /tf can work in visual odometry. Otherwise, they 
+    will conflict each other and drift anywhere.
+  -->
+
+  <arg name="bag_file"      default="/home/derek/database/rtab_mapping.bag" />
+  
+
+  <node pkg="tf" type="tf_remap" name="tf_remapper" output="screen">
+    <!-- [{old: depth_camera, new: /camera_rgb_optical_frame},{old: thermal_camera, new: /camera_optris_frame}] -->
+      <rosparam param="mappings">
+        [{old: /odom,new: /xxx_else}]
+    </rosparam>
+  </node>
+
+  <node pkg="rosbag" type="play" name="player" args="--clock $(arg bag_file)" required="true">
+    <remap from="tf" to="tf_old" />
+    <remap from="/data_throttled_camera_info"      to="/camera/color/camera_info" />
+    <remap from="/data_throttled_image/compressed" to="/camera/color/image_raw/compressed" />
+    <remap from="/data_throttled_image_depth/compressedDepth" to="/camera/aligned_depth_to_color/image_raw/compressedDepth" />
+    <remap from="/jn0/base_scan"                   to="/scan" />
+  </node>
+
+
+</launch>
+
